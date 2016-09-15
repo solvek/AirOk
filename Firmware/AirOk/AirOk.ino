@@ -1,11 +1,11 @@
 #include <SimpleTimer.h>
 #include <Wire.h>
+#include <SoftwareSerial.h>
+#include <U8glib.h>
 
 #include <CO2Sensor.h>
 #include <SFE_BMP180.h>
 #include "DHT.h"
-
-#include <U8glib.h>
 
 #define UNDEFINED -1
 
@@ -164,11 +164,16 @@ void pictureLoop(){
 }
 
 void draw() {
-  u8g.setFont(u8g_font_gdr20r);
+  u8g.setFont(u8g_font_gdr12);
   String s = String(airok.co2)+" ppm";
   u8g.drawStr(0, 25, s.c_str());
 
-//  u8g.setFont(u8g_font_gdr20r);
-  s = String(airok.temperature)+(char)186+"C";
+  s = String(airok.temperature)+(char)176+"C";
+  u8g.drawStr(70, 25, s.c_str());
+
+  s = String(airok.humidity)+"%";
   u8g.drawStr(0, 62, s.c_str());
+
+  s = String(airok.pressure)+" mb";
+  u8g.drawStr(64, 62, s.c_str());
 }

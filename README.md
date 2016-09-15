@@ -1,7 +1,5 @@
 # Overview
 
-![General looking](IMG_20160306_082824.jpg)
-
 
 # Features
 
@@ -12,7 +10,7 @@
 
 ## Arduino Nano (or Funduino)
 
-![Arduino Nano](images/nano.jpg)
+![Arduino Nano](Images/nano.jpg)
 [The sketch to bind everything.](Firmwares/AirOk/AirOk.ino)
 
 ## Module TGS4161
@@ -46,15 +44,15 @@ Can measure pressure, temperature and altitude.
 * [Library](https://github.com/sparkfun/BMP180_Breakout_Arduino_Library)
 * i2c address: 0x77
 
-![BMP180 wiring](images/bmp180_schem.png)
+![BMP180 wiring](Images/bmp180_schem.png)
 
 ## Temperature and humidity sensor DHT11
 
 [DHT11 Library](https://github.com/adafruit/DHT-sensor-library)
 
-![DHT11 Module photo](images/weather_dhtwiring.gif)
+![DHT11 Module photo](Images/weather_dhtwiring.gif)
 
-![DHT11 wiring](images/dht11_schem.png)
+![DHT11 wiring](Images/dht11_schem.png)
 
 ## Screen GM009605
 
