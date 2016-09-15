@@ -1,7 +1,13 @@
 # Overview
 
+An open sourse device which allows to control air condition in a room and publish data into cloud.
 
 # Features
+
+ * CO2 concentration reading
+ * Temperature reading
+ * Humidity reading
+ * Pressure reading
 
 # CO2 quality
 [How co2 conentration impacts humans (in ukrainian)](https://docs.google.com/document/d/1l87kJx1lqZpuicVIvCt-TA4aJeTVuhVo9qCxow-L0lQ/edit?usp=sharing)
@@ -60,7 +66,7 @@ Can measure pressure, temperature and altitude.
 * i2c address: 0x3c
 * Protocol/Driver: SSD1306
 * [Library](https://www.tindie.com/products/upgradeindustries/128x64-blue-i2c-oled-display-096-inch/)
-  - ([github](https://github.com/olikraus/u8glib))
+  - [GitHub](https://github.com/olikraus/u8glib)
   - [User Reference](https://github.com/olikraus/u8glib/wiki/userreference)
 * Input Voltage: 3-5 V
 

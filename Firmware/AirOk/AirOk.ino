@@ -7,6 +7,8 @@
 #include <SFE_BMP180.h>
 #include "DHT.h"
 
+#include "Cloud.h"
+
 #define UNDEFINED -1
 
 //////////////////////////////////////
@@ -14,18 +16,28 @@
 #define PIN_CO2 A0
 #define PIN_DHT 2
 #define PIN_BUTTON 3
+#define PIN_LED 13
+#define PIN_WIFI_RX 7
+#define PIN_WIFI_TX 6
 
 //////////////////////////////////////
 // Timing configuration
-#define PERIOD_UPDATE 2000
+#define PERIOD_UPDATE 2*1000
+#define PERIOD_SEND 5*60*1000
+
+//////////////////////////////////////
+// Other configuration
+#define CRITICAL_CO2 600
 
 CO2Sensor co2sensor(PIN_CO2);
 SFE_BMP180 bmp;
 DHT dht(PIN_DHT, DHT11);
 
+SoftwareSerial wifi(PIN_WIFI_RX, PIN_WIFI_TX);
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE|U8G_I2C_OPT_DEV_0);
 
-SimpleTimer updateDataTimer;
+//SimpleTimer updateDataTimer;
+//SimpleTimer sendDataToCloudTimer;
 
 struct {
   int co2;
@@ -35,8 +47,12 @@ struct {
 } airok;
 
 void setup() {
-  Serial.begin(9600);
+  pinMode(PIN_LED, OUTPUT);  
+  
+  Serial.begin(115200);
   Serial.println("=== Air'OK started ===");
+
+  connectWifi();
 
   u8g.setColorIndex(1);
 
@@ -50,11 +66,13 @@ void setup() {
 
   updateData();
     
-  updateDataTimer.setInterval(PERIOD_UPDATE, updateData);
+//  updateDataTimer.setInterval(PERIOD_UPDATE, updateData);
+//  sendDataToCloudTimer.setInterval(PERIOD_SEND, sendDataToCloud);
 }
 
 void loop() {  
-  updateDataTimer.run();
+//  updateDataTimer.run();
+//  sendDataToCloudTimer.run();
   pictureLoop();
   checkButton();
 }
@@ -62,7 +80,10 @@ void loop() {
 //////////////////////////////////////
 // Data
 void updateData(){
+  Serial.println("Reading data");
   airok.co2 = readCo2();
+
+  digitalWrite(PIN_LED, airok.co2<CRITICAL_CO2 ? LOW : HIGH);
 
 //  Serial.print("CO2 concentration: ");
 //  Serial.print(airok.co2);
@@ -177,3 +198,73 @@ void draw() {
   s = String(airok.pressure)+" mb";
   u8g.drawStr(64, 62, s.c_str());
 }
+
+//////////////////////////////////////
+// Cloud
+#define WIFI_TIMEOUT 5000
+
+void sendDataToCloud(){
+  String cmd = "AT+CIPSTART=\"TCP\",\"";
+  cmd += CLOUD_IP;
+  cmd += "\",80";
+  sendWifiCommand(cmd, "OK");
+
+  String req = CLOUD_GET;
+  req += airok.co2;
+
+  cmd = "AT+CIPSEND=";
+  cmd += (req.length()+2);
+  sendWifiCommand(cmd, ">");
+
+  sendWifiCommand(req, "OK");
+
+//  sendWifiCommand("AT+CIPCLOSE", "OK");  
+}
+
+void connectWifi(){
+ wifi.begin(115200);
+ sendWifiCommand("AT+RST", "ready");
+ Serial.println("Wifi reseted");
+ 
+ sendWifiCommand("AT+CWMODE=1", "OK"); 
+
+ String auth = "AT+CWJAP=\"";
+ auth +=CLOUD_SSID;
+ auth += "\",\"";
+ auth +=CLOUD_PASS;
+ auth +="\"";
+// Serial.print("Auth: ");
+// Serial.println(auth);
+ sendWifiCommand(auth, "OK");
+// sendWifiCommand("AT+CIFSR", "OK");
+}
+
+bool sendWifiCommand(String command, String ack){
+  Serial.print("Sending command: ");
+  Serial.println(command);
+
+  wifi.println(command);
+  if (expectResponse(ack))
+    return true;
+  else
+    Serial.println("Failed to execute command");
+}
+
+bool expectResponse(String keyword){
+ byte current_char = 0;
+ byte keyword_length = keyword.length();
+ long deadline = millis() + WIFI_TIMEOUT;
+ while(millis() < deadline){
+  if (wifi.available()){
+    char ch = wifi.read();
+    Serial.write(ch);
+    if (ch == keyword[current_char])
+      if (++current_char == keyword_length){
+       Serial.println();
+       return true;
+    }
+   }
+  }
+ return false; // Timed out
+}
+
