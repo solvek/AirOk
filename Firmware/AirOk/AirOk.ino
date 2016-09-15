@@ -29,8 +29,14 @@ void setup() {
   updateDataTimer.setInterval(PERIOD_UPDATE, updateData);
 }
 
-void loop() {
+void loop() {  
   updateDataTimer.run();
+
+  // picture loop
+  u8g.firstPage();  
+  do {
+    draw();
+  } while( u8g.nextPage() );  
 }
 
 void updateData(){
@@ -41,3 +47,8 @@ void updateData(){
   Serial.println(" ppm");
 }
 
+void draw() {
+  u8g.setFont(u8g_font_unifont);
+  String s = String(airok.co2)+" ppm";
+  u8g.drawStr(0, 22, s.c_str());
+}
