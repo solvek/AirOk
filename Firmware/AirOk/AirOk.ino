@@ -68,10 +68,14 @@ void updateData(){
 //  Serial.print(airok.co2);
 //  Serial.println(" ppm");
 
-  double temperature2, pressure;
+  airok.temperature = readDhtTemperature();
+  airok.humidity = readHumidity();
+
+  double temperature2;
 
   temperature2 = readBmpTemperature();
-  airok.temperature = temperature2;
+  if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
+  else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
 
   airok.pressure = (temperature2 == UNDEFINED) ?
     UNDEFINED :
@@ -121,6 +125,24 @@ double readPressure(double tmp){
   }
 
   return pressure;
+}
+
+int readDhtTemperature(){
+  int temperature = dht.readTemperature();
+  if (isnan(temperature)) {
+    Serial.println("Failed to read temperature from DHT sensor!");
+    return UNDEFINED;
+  }
+  return temperature;
+}
+
+int readHumidity(){
+  int humidity = dht.readHumidity();
+  if (isnan(humidity)) {  
+    Serial.println("Failed to read humidity from DHT sensor!");
+    return UNDEFINED;
+  }
+  return humidity;
 }
 
 //////////////////////////////////////
