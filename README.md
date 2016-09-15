@@ -51,7 +51,9 @@ Can measure pressure, temperature and altitude.
 * [AliExpress](https://www.aliexpress.com/item/Free-shipping-1Pcs-128X64-Blue-OLED-LCD-LED-Display-Module-For-Arduino-0-96-I2C-IIC/32658340632.html?spm=2114.13010608.0.65.Ul6GyN)
 * i2c address: 0x3c
 * Protocol/Driver: SSD1306
-* [Library](https://www.tindie.com/products/upgradeindustries/128x64-blue-i2c-oled-display-096-inch/) ([github](https://github.com/olikraus/u8glib))
+* [Library](https://www.tindie.com/products/upgradeindustries/128x64-blue-i2c-oled-display-096-inch/)
+  - ([github](https://github.com/olikraus/u8glib))
+  - [User Reference](https://github.com/olikraus/u8glib/wiki/userreference)
 * Input Voltage: 3-5 V
 
 # Other libraries
