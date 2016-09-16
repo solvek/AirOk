@@ -14,7 +14,7 @@ An open sourse device which allows to control air condition in a room and publis
 
 # Used electronic components
 
-![Scheme](Images/Airok_bb.png)
+![Scheme](Images/Airok_schem.png)
 
 [Fritzing scheme](Docs/Airok.fzz)
 
