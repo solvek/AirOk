@@ -59,7 +59,7 @@ void setup() {
   pinMode(PIN_LED, OUTPUT);  
   
   Serial.begin(115200);
-  Serial.println("=== Air'OK started ===");
+//  Serial.println("=== Air'OK started ===");
 
 #ifdef USE_CLOUD
   connectWifi();
@@ -68,7 +68,7 @@ void setup() {
   u8g.setColorIndex(1);
 
   if (!bmp.begin()) {
-    Serial.println("Could not find a valid BMP180 sensor, check wiring!");
+//    Serial.println("Could not find a valid BMP180 sensor, check wiring!");
   }
 
   dht.begin();
@@ -119,7 +119,7 @@ void loop() {
 //////////////////////////////////////
 // Data
 void updateData(){
-  Serial.println("Reading data");
+//  Serial.println("Reading data");
   airok.co2 = readCo2();
 
   digitalWrite(PIN_LED, airok.co2<CRITICAL_CO2 ? LOW : HIGH);
@@ -131,8 +131,8 @@ void updateData(){
   airok.temperature = readDhtTemperature();
   airok.humidity = readHumidity();
 
-  Serial.print("DHT Temperature: ");
-  Serial.println(airok.temperature);
+//  Serial.print("DHT Temperature: ");
+//  Serial.println(airok.temperature);
 
   double temperature2;
 
@@ -144,10 +144,10 @@ void updateData(){
     UNDEFINED :
     readPressure(temperature2);
 
-  Serial.print("BMP Temperature: ");
-  Serial.println(temperature2);
-  Serial.print("BMP pressure: ");
-  Serial.println(airok.pressure);
+//  Serial.print("BMP Temperature: ");
+//  Serial.println(temperature2);
+//  Serial.print("BMP pressure: ");
+//  Serial.println(airok.pressure);
 }
 
 int readCo2(){
@@ -159,7 +159,7 @@ double readBmpTemperature(){
   
   char status = bmp.startTemperature();
   if (status == 0){
-    Serial.println("error starting temperature measurement");
+//    Serial.println("error starting temperature measurement");
     return UNDEFINED;
   }
   
@@ -167,7 +167,7 @@ double readBmpTemperature(){
   
   status = bmp.getTemperature(t);
   if (status == 0){
-    Serial.println("error retrieving temperature measurement\n");
+//    Serial.println("error retrieving temperature measurement\n");
     return UNDEFINED;
   }
 
@@ -179,7 +179,7 @@ double readPressure(double tmp){
   
   char status = bmp.startPressure(3);
   if (status == 0){
-    Serial.println("error starting pressure measurement\n");
+//    Serial.println("error starting pressure measurement\n");
     return UNDEFINED;
   }
   
@@ -188,7 +188,7 @@ double readPressure(double tmp){
   status = bmp.getPressure(pressure, tmp);
   
   if (status == 0){
-    Serial.println("error retrieving pressure measurement\n");
+//    Serial.println("error retrieving pressure measurement\n");
     return UNDEFINED;
   }
 
@@ -198,7 +198,7 @@ double readPressure(double tmp){
 int readDhtTemperature(){
   int temperature = dht.readTemperature();
   if (isnan(temperature)) {
-    Serial.println("Failed to read temperature from DHT sensor!");
+//    Serial.println("Failed to read temperature from DHT sensor!");
     return UNDEFINED;
   }
   return temperature;
@@ -207,7 +207,7 @@ int readDhtTemperature(){
 int readHumidity(){
   int humidity = dht.readHumidity();
   if (isnan(humidity)) {  
-    Serial.println("Failed to read humidity from DHT sensor!");
+//    Serial.println("Failed to read humidity from DHT sensor!");
     return UNDEFINED;
   }
   return humidity;
@@ -224,6 +224,9 @@ void checkButton(){
 
 //////////////////////////////////////
 // Display
+#define WIDTH 128
+#define HEIGHT 64
+
 void pictureLoop(){
   u8g.firstPage();  
   do {
@@ -237,13 +240,17 @@ void draw() {
   u8g.drawStr(0, 25, s.c_str());
 
   s = String(airok.temperature)+(char)176+"C";
-  u8g.drawStr(70, 25, s.c_str());
+  char* c = s.c_str();
+  int w = u8g.getStrWidth(c);
+  u8g.drawStr(WIDTH-w, 25, c);
 
   s = String(airok.humidity)+"%";
   u8g.drawStr(0, 62, s.c_str());
 
   s = String(airok.pressure)+" mb";
-  u8g.drawStr(64, 62, s.c_str());
+  c = s.c_str();
+  w = u8g.getStrWidth(c);
+  u8g.drawStr(WIDTH-w, 62, c);
 }
 
 //////////////////////////////////////
@@ -295,14 +302,14 @@ void connectWifi(){
 }
 
 bool sendWifiCommand(String command, String ack){
-  Serial.print("Sending command: ");
-  Serial.println(command);
+//  Serial.print("Sending command: ");
+//  Serial.println(command);
 
   wifi.println(command);
   if (expectResponse(ack))
     return true;
-  else
-    Serial.println("Failed to execute command");
+//  else
+//    Serial.println("Failed to execute command");
 }
 
 bool expectResponse(String keyword){
@@ -312,10 +319,10 @@ bool expectResponse(String keyword){
  while(millis() < deadline){
   if (wifi.available()){
     char ch = wifi.read();
-    Serial.write(ch);
+//    Serial.write(ch);
     if (ch == keyword[current_char])
       if (++current_char == keyword_length){
-       Serial.println();
+//       Serial.println();
        return true;
     }
    }
