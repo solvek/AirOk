@@ -26,21 +26,27 @@ An open sourse device which allows to control air condition in a room and publis
 
  * Recommended input voltage: [7-12 V](https://www.arduino.cc/en/Main/ArduinoBoardNano)
 
-## Module TGS4161
+## TGS4161 - CO2 Sensor
+
+![TGS4161](Images/Tgs4161.jpg)
 
   * [Library and desciption](https://github.com/solvek/CO2Sensor)
 
   Module based on sensor MG811 also works fine for me however it is a little bit bigger and require 6V.
 
-For voltage stabilization I am using such votage stabilizator:
+## Votage stabilizer
 
-![Arduino Nano](Images/Voltage.jpg)
+For voltage stabilizing for CO2 sensor I am using such votage stabilizator:
+
+![Voltage stabilizer](Images/Voltage.jpg)
 
  * [AliExpress](https://www.aliexpress.com/item/LM7805-L7805-3-Terminals-Voltage-Stabilizer-Regulator-Power-Supply-7-5-35V-to-5V/32692400880.html?spm=2114.13010608.0.99.jZrgkR)
  * Input Power: 7.5-35V (input polarity is not important)
  * It is bases on L7805
 
-##  WiFi module ESP8266
+##  ESP8266 - WiFi module
+
+![ESP8266](Images/ESP8266.jpg)
 
  * [AliExpress](https://www.aliexpress.com/item/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send-Receive-LWIP-AP-STA/32229052791.html?spm=2114.13010608.0.90.mKvlhC)
  * [Pinout](Images/esp8266/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send--Receive-Module.jpg)
@@ -60,7 +66,7 @@ For voltage stabilization I am using such votage stabilizator:
  * GND - Black
  * UTXD - Green
 
-## Barometer/Temperature/Altitude sensor BMP180
+## BMP180 - Barometer/Temperature/Altitude sensor
 
 Can measure pressure, temperature and altitude.
 
@@ -69,17 +75,14 @@ Can measure pressure, temperature and altitude.
 
 ![BMP180 wiring](Images/bmp180_schem.png)
 
-## Temperature and humidity sensor DHT11
-
-[DHT11 Library](https://github.com/adafruit/DHT-sensor-library)
+## DHT11- Temperature and humidity sensor
 
 ![DHT11 Module photo](Images/weather_dhtwiring.gif)
 
-![DHT11 wiring](Images/dht11_schem.png)
-
+* [DHT11 Library](https://github.com/adafruit/DHT-sensor-library)
  * Input voltage: [3-5V](https://www.adafruit.com/product/386)
 
-## Screen GM009605
+## Oled Display
 
 ![Oled Screen](Images/Oled.jpg)
 
@@ -96,7 +99,7 @@ Can measure pressure, temperature and altitude.
 * Interface: I2C
 * Screen Size: 0.96''
 
-## Touch button TTP223
+## TTP223 - Touch Button
 
   * Power: 2.5-5.5V
   * [AliExpress](https://www.aliexpress.com/item/10Pcs-TTP223-Touch-Key-Module-Self-Locking-No-Locking-Capacitive-Switches-Single-Road-Reconstruction-Module/32597879639.html?spm=2114.13010608.0.106.uBkkVb)
