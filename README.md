@@ -23,6 +23,8 @@ An open sourse device which allows to control air condition in a room and publis
 
   * [Library and desciption](https://github.com/solvek/CO2Sensor)
 
+  Module based on sensor MG811 also works fine for me however it is a little bit bigger and require 6V.
+
 ##  WiFi module ESP8266
 
  * [AliExpress](https://www.aliexpress.com/item/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send-Receive-LWIP-AP-STA/32229052791.html?spm=2114.13010608.0.90.mKvlhC)
@@ -68,13 +70,12 @@ Can measure pressure, temperature and altitude.
 * [Library](https://www.tindie.com/products/upgradeindustries/128x64-blue-i2c-oled-display-096-inch/)
   - [GitHub](https://github.com/olikraus/u8glib)
   - [User Reference](https://github.com/olikraus/u8glib/wiki/userreference)
+  - [Fonts](https://github.com/olikraus/u8glib/wiki/fontgroup)
 * Input Voltage: 3-5 V
 
-# Other libraries
-
-  * [SimpleTimer](http://playground.arduino.cc/Code/SimpleTimer)
-
 # Cloud configuration
+
+![Arduino Nano](Images/ThingSpeakAirok.png)
 
 In order to configure wifi and cloud do the following.
 
