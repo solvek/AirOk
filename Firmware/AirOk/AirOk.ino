@@ -242,7 +242,14 @@ void sendDataToCloud(){
   sendWifiCommand(cmd, "OK");
 
   String req = CLOUD_GET;
+  req += "field1=";
   req += airok.co2;
+  req += "&field2=";
+  req += airok.temperature;
+  req += "&field3=";
+  req += airok.pressure;
+  req += "&field4=";
+  req += airok.humidity;
 
   cmd = "AT+CIPSEND=";
   cmd += (req.length()+2);
