@@ -1,12 +1,16 @@
 #include <Wire.h>
-#include <SoftwareSerial.h>
 #include <U8glib.h>
 
 #include <CO2Sensor.h>
 #include <SFE_BMP180.h>
 #include "DHT.h"
 
+// If the file is missing, make a copy of CloudSample.h naming it Cloud.h
 #include "Cloud.h"
+
+#ifdef USE_CLOUD
+#include <SoftwareSerial.h>
+#endif
 
 #define UNDEFINED -1
 
@@ -21,18 +25,24 @@
 
 //////////////////////////////////////
 // Timing configuration
-#define PERIOD_UPDATE 5*1000L
+// Period of updating data from sensors and displaying
+#define PERIOD_UPDATE 2*1000L
+// Period of sending data to cloud
 #define PERIOD_SEND 10*60*1000L
 
 //////////////////////////////////////
-// Other configuration
+// Other configuration 
+// Red LED indicator will be activated if actual concentration exceeds this value
 #define CRITICAL_CO2 600
 
 CO2Sensor co2sensor(PIN_CO2);
 SFE_BMP180 bmp;
 DHT dht(PIN_DHT, DHT11);
 
+#ifdef USE_CLOUD
 SoftwareSerial wifi(PIN_WIFI_RX, PIN_WIFI_TX);
+#endif
+
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE|U8G_I2C_OPT_DEV_0);
 
 long lastUpdateDataTime;
@@ -51,7 +61,9 @@ void setup() {
   Serial.begin(115200);
   Serial.println("=== Air'OK started ===");
 
+#ifdef USE_CLOUD
   connectWifi();
+#endif
 
   u8g.setColorIndex(1);
 
@@ -84,6 +96,7 @@ void loop() {
     lastUpdateDataTime = now;
   }
 
+#ifdef USE_CLOUD
   if (now - lastSendDataTime > PERIOD_SEND){
 //    Serial.print("now: ");
 //    Serial.println(now);
@@ -97,6 +110,8 @@ void loop() {
     sendDataToCloud();
     lastSendDataTime = now;
   } 
+#endif
+ 
   pictureLoop();
   checkButton();
 }
@@ -233,6 +248,7 @@ void draw() {
 
 //////////////////////////////////////
 // Cloud
+#ifdef USE_CLOUD
 #define WIFI_TIMEOUT 5000
 
 void sendDataToCloud(){
@@ -306,4 +322,4 @@ bool expectResponse(String keyword){
   }
  return false; // Timed out
 }
-
+#endif
