@@ -46,7 +46,7 @@ For voltage stabilizing for CO2 sensor I am using such votage stabilizator:
 
 ##  ESP8266 - WiFi module
 
-![ESP8266](Images/ESP8266.jpg)
+![ESP8266](Images/ESP8266-2.jpg)
 
  * [AliExpress](https://www.aliexpress.com/item/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send-Receive-LWIP-AP-STA/32229052791.html?spm=2114.13010608.0.90.mKvlhC)
  * [Pinout](Images/esp8266/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send--Receive-Module.jpg)
