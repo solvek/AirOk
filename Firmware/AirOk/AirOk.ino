@@ -1,4 +1,3 @@
-#include <SimpleTimer.h>
 #include <Wire.h>
 #include <SoftwareSerial.h>
 #include <U8glib.h>
@@ -22,8 +21,8 @@
 
 //////////////////////////////////////
 // Timing configuration
-#define PERIOD_UPDATE 2*1000
-#define PERIOD_SEND 5*60*1000
+#define PERIOD_UPDATE 5*1000L
+#define PERIOD_SEND 10*60*1000L
 
 //////////////////////////////////////
 // Other configuration
@@ -36,8 +35,8 @@ DHT dht(PIN_DHT, DHT11);
 SoftwareSerial wifi(PIN_WIFI_RX, PIN_WIFI_TX);
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NONE|U8G_I2C_OPT_DEV_0);
 
-//SimpleTimer updateDataTimer;
-//SimpleTimer sendDataToCloudTimer;
+long lastUpdateDataTime;
+long lastSendDataTime;
 
 struct {
   int co2;
@@ -65,14 +64,39 @@ void setup() {
   co2sensor.calibrate();
 
   updateData();
-    
-//  updateDataTimer.setInterval(PERIOD_UPDATE, updateData);
-//  sendDataToCloudTimer.setInterval(PERIOD_SEND, sendDataToCloud);
+
+  lastUpdateDataTime = 0;
+  lastSendDataTime = 0;
 }
 
 void loop() {  
-//  updateDataTimer.run();
-//  sendDataToCloudTimer.run();
+  long now = millis();
+  if (now - lastUpdateDataTime > PERIOD_UPDATE){  
+//    Serial.print("now: ");
+//    Serial.println(now);
+//    Serial.print("lastUpdateDataTime: ");
+//    Serial.println(lastUpdateDataTime);
+//    Serial.print("Dif: ");
+//    Serial.println(now-lastUpdateDataTime);    
+//    Serial.print("PERIOD_UPDATE: ");
+//    Serial.println(PERIOD_UPDATE);    
+    updateData();
+    lastUpdateDataTime = now;
+  }
+
+  if (now - lastSendDataTime > PERIOD_SEND){
+//    Serial.print("now: ");
+//    Serial.println(now);
+//    Serial.print("lastSendDataTime: ");
+//    Serial.println(lastSendDataTime);
+//    Serial.print("Dif: ");
+//    Serial.println(now-lastSendDataTime);    
+//    Serial.print("PERIOD_SEND: ");
+//    Serial.println(PERIOD_SEND);
+    
+    sendDataToCloud();
+    lastSendDataTime = now;
+  } 
   pictureLoop();
   checkButton();
 }
@@ -92,6 +116,9 @@ void updateData(){
   airok.temperature = readDhtTemperature();
   airok.humidity = readHumidity();
 
+  Serial.print("DHT Temperature: ");
+  Serial.println(airok.temperature);
+
   double temperature2;
 
   temperature2 = readBmpTemperature();
@@ -101,6 +128,11 @@ void updateData(){
   airok.pressure = (temperature2 == UNDEFINED) ?
     UNDEFINED :
     readPressure(temperature2);
+
+  Serial.print("BMP Temperature: ");
+  Serial.println(temperature2);
+  Serial.print("BMP pressure: ");
+  Serial.println(airok.pressure);
 }
 
 int readCo2(){
