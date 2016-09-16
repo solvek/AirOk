@@ -73,3 +73,16 @@ Can measure pressure, temperature and altitude.
 # Other libraries
 
   * [SimpleTimer](http://playground.arduino.cc/Code/SimpleTimer)
+
+# Cloud configuration
+
+In order to configure wifi and cloud do the following.
+
+ 1. Make copy of `CloudSample.h` file naming it `Cloud.h` in the same directory (if you didn't do this yet)
+ 2. Uncomment the first line (`#define USE_CLOUD`)
+ 3. Register an account on [ThingSpeak](thingspeak.com) if you do not have yet
+ 4. Create a ThingSpeak channel
+ 5. Add 4 fields (CO2 concentration, Temperature, Pressure, Humidity)
+ 6. In section `API Keys` copy `Write API Key`
+ 7. Fill missing data in file `Cloud.h`
+

@@ -10,5 +10,5 @@
 #define CLOUD_IP "184.106.153.149"
 
 // HTTP request for data sending.
-// Replace {APIWriteKey} with actual key from thingspeak.com
-#define CLOUD_GET = "GET /update?key={APIWriteKey}&";
+// Replace {WriteAPIKey} with actual key from thingspeak.com
+#define CLOUD_GET "GET /update?key={WriteAPIKey}&";
