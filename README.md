@@ -14,16 +14,31 @@ An open sourse device which allows to control air condition in a room and publis
 
 # Used electronic components
 
+![Scheme](Images/Airok_bb.png)
+
+[Fritzing scheme](Docs/Airok.fzz)
+
 ## Arduino Nano (or Funduino)
 
 ![Arduino Nano](Images/nano.jpg)
-[The sketch to bind everything.](Firmwares/AirOk/AirOk.ino)
+
+ * [The sketch to bind everything.](Firmwares/AirOk/AirOk.ino)
+
+ * Recommended input voltage: [7-12 V](https://www.arduino.cc/en/Main/ArduinoBoardNano)
 
 ## Module TGS4161
 
   * [Library and desciption](https://github.com/solvek/CO2Sensor)
 
   Module based on sensor MG811 also works fine for me however it is a little bit bigger and require 6V.
+
+For voltage stabilization I am using such votage stabilizator:
+
+![Arduino Nano](Images/Voltage.jpg)
+
+ * [AliExpress](https://www.aliexpress.com/item/LM7805-L7805-3-Terminals-Voltage-Stabilizer-Regulator-Power-Supply-7-5-35V-to-5V/32692400880.html?spm=2114.13010608.0.99.jZrgkR)
+ * Input Power: 7.5-35V (input polarity is not important)
+ * It is bases on L7805
 
 ##  WiFi module ESP8266
 
@@ -62,7 +77,11 @@ Can measure pressure, temperature and altitude.
 
 ![DHT11 wiring](Images/dht11_schem.png)
 
+ * Input voltage: [3-5V](https://www.adafruit.com/product/386)
+
 ## Screen GM009605
+
+![Oled Screen](Images/Oled.jpg)
 
 * [AliExpress](https://www.aliexpress.com/item/Free-shipping-1Pcs-128X64-Blue-OLED-LCD-LED-Display-Module-For-Arduino-0-96-I2C-IIC/32658340632.html?spm=2114.13010608.0.65.Ul6GyN)
 * i2c address: 0x3c
@@ -71,11 +90,27 @@ Can measure pressure, temperature and altitude.
   - [GitHub](https://github.com/olikraus/u8glib)
   - [User Reference](https://github.com/olikraus/u8glib/wiki/userreference)
   - [Fonts](https://github.com/olikraus/u8glib/wiki/fontgroup)
-* Input Voltage: 3-5 V
+* Power: 3-5 V
+* Resolution: 128*64
+* Colors: Black and Blue
+* Interface: I2C
+* Screen Size: 0.96''
+
+## Touch button TTP223
+
+  * Power: 2.5-5.5V
+  * [AliExpress](https://www.aliexpress.com/item/10Pcs-TTP223-Touch-Key-Module-Self-Locking-No-Locking-Capacitive-Switches-Single-Road-Reconstruction-Module/32597879639.html?spm=2114.13010608.0.106.uBkkVb)
+
+Trigger setting mode: (1- > Short ; 0- > No Short)
+
+ * AB=00:No-lock High TTL level ouput;
+ * AB=01:Self-lock High TTL level ouput;
+ * AB=10:No-lock Low TTL level ouput;
+ * AB=11:Self-lock Low TTL level ouput;
 
 # Cloud configuration
 
-![Arduino Nano](Images/ThingSpeakAirok.png)
+![ThingSpeak Charts](Images/ThingSpeakAirok.png)
 
 In order to configure wifi and cloud do the following.
 

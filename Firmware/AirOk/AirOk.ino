@@ -19,7 +19,7 @@
 #define PIN_CO2 A0
 #define PIN_DHT 2
 #define PIN_BUTTON 3
-#define PIN_LED 13
+#define PIN_LED 12
 #define PIN_WIFI_RX 7
 #define PIN_WIFI_TX 6
 
