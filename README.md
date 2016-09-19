@@ -80,7 +80,7 @@ Can measure pressure, temperature and altitude.
 ![DHT11 Module photo](Images/weather_dhtwiring.gif)
 
 * [DHT11 Library](https://github.com/adafruit/DHT-sensor-library)
- * Input voltage: [3-5V](https://www.adafruit.com/product/386)
+* Input voltage: [3-5V](https://www.adafruit.com/product/386)
 
 ## Oled Display
 

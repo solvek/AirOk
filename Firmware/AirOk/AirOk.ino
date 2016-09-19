@@ -216,10 +216,25 @@ int readHumidity(){
 //////////////////////////////////////
 // Control
 void checkButton(){
-  if (digitalRead(PIN_BUTTON) == LOW) return;
-  while(digitalRead(PIN_BUTTON) == HIGH);
+  if (digitalRead(PIN_BUTTON) == LOW) return;  
 
   co2sensor.calibrate();  
+
+  digitalWrite(PIN_LED, LOW);
+  delay(100);
+  digitalWrite(PIN_LED, HIGH);
+  delay(200);
+  digitalWrite(PIN_LED, LOW);
+  delay(50);  
+  digitalWrite(PIN_LED, HIGH);
+  delay(200);
+  digitalWrite(PIN_LED, LOW);
+  delay(50);  
+  digitalWrite(PIN_LED, HIGH);
+  delay(200);
+  digitalWrite(PIN_LED, LOW);
+
+  while(digitalRead(PIN_BUTTON) == HIGH);
 }
 
 //////////////////////////////////////
