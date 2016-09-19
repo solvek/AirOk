@@ -2,12 +2,18 @@
 
 An open sourse device which allows to control air condition in a room and publish data into cloud.
 
+![Prototype general look](Images/Prototype.jpg)
+
 # Features
 
  * CO2 concentration reading
  * Temperature reading
  * Humidity reading
  * Pressure reading
+ * Display to show the values
+ * Sending data to cloud via wifi
+ * Button for CO2 sensor calibration
+ * Red indicator for critical CO2 level
 
 # CO2 quality
 [How co2 conentration impacts humans (in ukrainian)](https://docs.google.com/document/d/1l87kJx1lqZpuicVIvCt-TA4aJeTVuhVo9qCxow-L0lQ/edit?usp=sharing)
