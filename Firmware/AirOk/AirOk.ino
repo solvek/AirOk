@@ -26,7 +26,7 @@
 //////////////////////////////////////
 // Timing configuration
 // Period of updating data from sensors and displaying
-#define PERIOD_UPDATE 2*1000L
+#define PERIOD_UPDATE 100L
 // Period of sending data to cloud
 #define PERIOD_SEND 10*60*1000L
 
@@ -223,15 +223,7 @@ void checkButton(){
   digitalWrite(PIN_LED, LOW);
   delay(100);
   digitalWrite(PIN_LED, HIGH);
-  delay(200);
-  digitalWrite(PIN_LED, LOW);
-  delay(50);  
-  digitalWrite(PIN_LED, HIGH);
-  delay(200);
-  digitalWrite(PIN_LED, LOW);
-  delay(50);  
-  digitalWrite(PIN_LED, HIGH);
-  delay(200);
+  delay(500);
   digitalWrite(PIN_LED, LOW);
 
   while(digitalRead(PIN_BUTTON) == HIGH);
