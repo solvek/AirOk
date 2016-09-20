@@ -117,7 +117,7 @@ Trigger setting mode: (1- > Short ; 0- > No Short)
  * AB=10:No-lock Low TTL level ouput;
  * AB=11:Self-lock Low TTL level ouput;
 
-# Cloud configuration
+# Cloud Configuration
 
 ![ThingSpeak Charts](Images/ThingSpeakAirok.png)
 
@@ -131,3 +131,11 @@ In order to configure wifi and cloud do the following.
  6. In section `API Keys` copy `Write API Key`
  7. Fill missing data in file `Cloud.h`
 
+# Electricity Power
+
+![Current Measure](Images/Current.jpg)
+
+## 12 V adapter
+
+ * Power: 3 Wt
+ * Current: 250 mA
