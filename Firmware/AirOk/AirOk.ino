@@ -62,6 +62,7 @@ void setup() {
 //  Serial.println("=== Air'OK started ===");
 
 #ifdef USE_CLOUD
+  wifi.begin(115200);
   connectWifi();
 #endif
 
@@ -290,10 +291,10 @@ void sendDataToCloud(){
 //  sendWifiCommand("AT+CIPCLOSE", "OK");  
 }
 
-void connectWifi(){
- wifi.begin(115200);
+void connectWifi(){ 
+ Serial.println("Connecting wifi");
  sendWifiCommand("AT+RST", "ready");
- Serial.println("Wifi reseted");
+// Serial.println("Wifi reseted");
  
  sendWifiCommand("AT+CWMODE=1", "OK"); 
 
@@ -306,17 +307,20 @@ void connectWifi(){
 // Serial.println(auth);
  sendWifiCommand(auth, "OK");
 // sendWifiCommand("AT+CIFSR", "OK");
+
+// This command takes the wifi to low energy (sleep) mode for provided time in ms but it doesn't wake up for me
+// sendWifiCommand("AT+GSLP=10000", "OK");
 }
 
 bool sendWifiCommand(String command, String ack){
-//  Serial.print("Sending command: ");
-//  Serial.println(command);
+  Serial.print("Sending command: ");
+  Serial.println(command);
 
   wifi.println(command);
   if (expectResponse(ack))
     return true;
-//  else
-//    Serial.println("Failed to execute command");
+  else
+    Serial.println("Failed to execute command");
 }
 
 bool expectResponse(String keyword){
@@ -326,10 +330,10 @@ bool expectResponse(String keyword){
  while(millis() < deadline){
   if (wifi.available()){
     char ch = wifi.read();
-//    Serial.write(ch);
+    Serial.write(ch);
     if (ch == keyword[current_char])
       if (++current_char == keyword_length){
-//       Serial.println();
+       Serial.println();
        return true;
     }
    }

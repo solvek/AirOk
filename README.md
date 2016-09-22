@@ -137,5 +137,12 @@ In order to configure wifi and cloud do the following.
 
 ## 12 V adapter
 
+### With WiFi
+
  * Power: 3 Wt
- * Current: 250 mA
+ * Current: 240 mA
+
+### Without WiFi
+
+ * Power: 1.9 Wt
+ * Current: 160 mA
