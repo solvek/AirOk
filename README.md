@@ -139,10 +139,10 @@ In order to configure wifi and cloud do the following.
 
 ### With WiFi
 
- * Power: 3 Wt
+ * Power: 3 W
  * Current: 240 mA
 
 ### Without WiFi
 
- * Power: 1.9 Wt
+ * Power: 1.9 W
  * Current: 160 mA

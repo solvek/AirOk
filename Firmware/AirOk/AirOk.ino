@@ -16,7 +16,8 @@
 
 //////////////////////////////////////
 // Pins configuration
-#define PIN_CO2 A0
+#define PIN_CO2_AOUT A0
+#define PIN_CO2_DOUT 5
 #define PIN_DHT 2
 #define PIN_BUTTON 3
 #define PIN_LED 12
@@ -33,9 +34,10 @@
 //////////////////////////////////////
 // Other configuration 
 // Red LED indicator will be activated if actual concentration exceeds this value
+// If CRITICAL_CO2 then signal from CO2 sensor will be used
 #define CRITICAL_CO2 600
 
-CO2Sensor co2sensor(PIN_CO2);
+CO2Sensor co2sensor(PIN_CO2_AOUT);
 SFE_BMP180 bmp;
 DHT dht(PIN_DHT, DHT11);
 
@@ -56,7 +58,12 @@ struct {
 } airok;
 
 void setup() {
-  pinMode(PIN_LED, OUTPUT);  
+  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_BUTTON, INPUT);
+
+  #ifndef CRITICAL_CO2
+  pinMode(PIN_CO2_DOUT, INPUT);
+  #endif
   
   Serial.begin(115200);
 //  Serial.println("=== Air'OK started ===");
@@ -123,7 +130,12 @@ void updateData(){
 //  Serial.println("Reading data");
   airok.co2 = readCo2();
 
+  #ifdef CRITICAL_CO2
   digitalWrite(PIN_LED, airok.co2<CRITICAL_CO2 ? LOW : HIGH);
+  #else
+  int isCritical = digitalRead(PIN_CO2_DOUT);
+  digitalWrite(PIN_LED, isCritical);
+  #endif
 
 //  Serial.print("CO2 concentration: ");
 //  Serial.print(airok.co2);
@@ -269,7 +281,8 @@ void draw() {
 void sendDataToCloud(){
   String cmd = "AT+CIPSTART=\"TCP\",\"";
   cmd += CLOUD_IP;
-  cmd += "\",80";
+  cmd += "\",";
+  cmd += CLOUD_PORT;
   sendWifiCommand(cmd, "OK");
 
   String req = CLOUD_GET;
@@ -292,7 +305,7 @@ void sendDataToCloud(){
 }
 
 void connectWifi(){ 
- Serial.println("Connecting wifi");
+// Serial.println("Connecting wifi");
  sendWifiCommand("AT+RST", "ready");
 // Serial.println("Wifi reseted");
  
@@ -313,14 +326,14 @@ void connectWifi(){
 }
 
 bool sendWifiCommand(String command, String ack){
-  Serial.print("Sending command: ");
-  Serial.println(command);
+//  Serial.print("Sending command: ");
+//  Serial.println(command);
 
   wifi.println(command);
   if (expectResponse(ack))
     return true;
-  else
-    Serial.println("Failed to execute command");
+//  else
+//    Serial.println("Failed to execute command");
 }
 
 bool expectResponse(String keyword){
@@ -330,10 +343,10 @@ bool expectResponse(String keyword){
  while(millis() < deadline){
   if (wifi.available()){
     char ch = wifi.read();
-    Serial.write(ch);
+//    Serial.write(ch);
     if (ch == keyword[current_char])
       if (++current_char == keyword_length){
-       Serial.println();
+//       Serial.println();
        return true;
     }
    }
