@@ -2,7 +2,7 @@
 
 An open sourse device which allows to control air condition in a room and publish data into cloud.
 
-![Prototype general look](Images/Prototype.jpg =200x)
+<img src="Images/Prototype.jpg" alt="Prototype. general look" width="200">
 
 # Features
 
@@ -20,13 +20,13 @@ An open sourse device which allows to control air condition in a room and publis
 
 # Used electronic components
 
-![Scheme](Images/Airok_schem.png =200x)
+<img src="Images/Airok_schem.png" alt="Scheme" width="200">
 
 [Fritzing scheme](Docs/Airok.fzz)
 
 ## Arduino Nano (or Funduino)
 
-![Arduino Nano](Images/nano.jpg =200x)
+<img src="Images/nano.jpg" alt="Arduino Nano" width="200">
 
  * [The sketch to bind everything.](Firmwares/AirOk/AirOk.ino)
 
@@ -34,7 +34,7 @@ An open sourse device which allows to control air condition in a room and publis
 
 ## TGS4161 - CO2 Sensor
 
-![TGS4161](Images/Tgs4161.jpg =200x)
+<img src="Images/Tgs4161.jpg" alt="TGS4161" width="200">
 
   * [Library and desciption](https://github.com/solvek/CO2Sensor)
 
@@ -54,11 +54,11 @@ For voltage stabilizing for CO2 sensor I am using such votage stabilizator:
 
 For screen, barometer and wifi module I supply 3.3V power. For regulation of voltage I am using ATC AP1084-33 voltage regulator with a radiator.
 
-![3.3 Voltage Regulator](Images/AP1084-33.png =200x)
+<img src="3.3 Voltage Regulator" alt="" width="200">
 
 ##  ESP8266 - WiFi module
 
-![ESP8266](Images/ESP8266-2.jpg =200x)
+<img src="Images/ESP8266-2.jpg" alt="ESP8266" width="200">
 
  * [AliExpress](https://www.aliexpress.com/item/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send-Receive-LWIP-AP-STA/32229052791.html?spm=2114.13010608.0.90.mKvlhC)
  * [Pinout](Images/esp8266/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send--Receive-Module.jpg)
@@ -85,18 +85,18 @@ Can measure pressure, temperature and altitude.
 * [Library](https://github.com/sparkfun/BMP180_Breakout_Arduino_Library)
 * i2c address: 0x77
 
-![BMP180 wiring](Images/bmp180_schem.png =200x)
+<img src="Images/bmp180_schem.png" alt="BMP180 wiring" width="200">
 
 ## DHT11- Temperature and humidity sensor
 
-![DHT11 Module photo](Images/weather_dhtwiring.gif =200x)
+<img src="Images/weather_dhtwiring.gif" alt="DHT11 Module photo" width="200">
 
 * [DHT11 Library](https://github.com/adafruit/DHT-sensor-library)
 * Input voltage: [3-5V](https://www.adafruit.com/product/386)
 
 ## Oled Display
 
-![Oled Screen](Images/Oled.jpg =200x)
+<img src="Images/Oled.jpg" alt="Oled Screen" width="200">
 
 * [AliExpress](https://www.aliexpress.com/item/Free-shipping-1Pcs-128X64-Blue-OLED-LCD-LED-Display-Module-For-Arduino-0-96-I2C-IIC/32658340632.html?spm=2114.13010608.0.65.Ul6GyN)
 * i2c address: 0x3c
@@ -125,7 +125,7 @@ Trigger setting mode: (1- > Short ; 0- > No Short)
 
 # Cloud Configuration
 
-![ThingSpeak Charts](Images/ThingSpeakAirok.png =200x)
+<img src="Images/ThingSpeakAirok.png" alt="ThingSpeak Charts" width="200">
 
 In order to configure wifi and cloud do the following.
 
@@ -156,7 +156,7 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 
 # Electricity Power
 
-![Current Measure](Images/Current.jpg =200x)
+<img src="Images/Current.jpg" alt="Current Measure" width="200">
 
 ## 12 V adapter
 
