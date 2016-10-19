@@ -29,7 +29,7 @@
 // Period of updating data from sensors and displaying
 #define PERIOD_UPDATE 100L
 // Period of sending data to cloud
-#define PERIOD_SEND 10*60*1000L
+#define PERIOD_SEND 1*60*1000L
 
 //////////////////////////////////////
 // Other configuration 
@@ -106,14 +106,14 @@ void loop() {
 
 #ifdef USE_CLOUD
   if (now - lastSendDataTime > PERIOD_SEND){
-//    Serial.print("now: ");
-//    Serial.println(now);
-//    Serial.print("lastSendDataTime: ");
-//    Serial.println(lastSendDataTime);
-//    Serial.print("Dif: ");
-//    Serial.println(now-lastSendDataTime);    
-//    Serial.print("PERIOD_SEND: ");
-//    Serial.println(PERIOD_SEND);
+    Serial.print(F("now: "));
+    Serial.println(now);
+    Serial.print(F("lastSendDataTime: "));
+    Serial.println(lastSendDataTime);
+    Serial.print(F("Dif: "));
+    Serial.println(now-lastSendDataTime);    
+    Serial.print(F("PERIOD_SEND: "));
+    Serial.println(PERIOD_SEND);
     
     sendDataToCloud();
     lastSendDataTime = now;
@@ -127,7 +127,7 @@ void loop() {
 //////////////////////////////////////
 // Data
 void updateData(){
-//  Serial.println("Reading data");
+//  Serial.println(F("Reading data"));
   airok.co2 = readCo2();
 
   #ifdef CRITICAL_CO2
@@ -137,14 +137,14 @@ void updateData(){
   digitalWrite(PIN_LED, isCritical);
   #endif
 
-//  Serial.print("CO2 concentration: ");
+//  Serial.print(F("CO2 concentration: "));
 //  Serial.print(airok.co2);
-//  Serial.println(" ppm");
+//  Serial.println(F(" ppm"));
 
   airok.temperature = readDhtTemperature();
   airok.humidity = readHumidity();
 
-//  Serial.print("DHT Temperature: ");
+//  Serial.print(F("DHT Temperature: "));
 //  Serial.println(airok.temperature);
 
   double temperature2;
@@ -278,44 +278,49 @@ void draw() {
 #ifdef USE_CLOUD
 #define WIFI_TIMEOUT 5000
 
+#define SEPARATOR  F("&")
+
 void sendDataToCloud(){
-  String cmd = "AT+CIPSTART=\"TCP\",\"";
+  String cmd = F("AT+CIPSTART=\"TCP\",\"");
   cmd += CLOUD_IP;
-  cmd += "\",";
+  cmd += F("\",");
   cmd += CLOUD_PORT;
-  sendWifiCommand(cmd, "OK");
+  sendWifiCommand(cmd, F("OK"));
 
   String req = CLOUD_GET;
-  req += "field1=";
+  req += CLOUD_FIELD_CO2;
   req += airok.co2;
-  req += "&field2=";
+  req += SEPARATOR;
+  req += CLOUD_FIELD_TEMPERATURE;
   req += airok.temperature;
-  req += "&field3=";
+  req += SEPARATOR;
+  req += CLOUD_FIELD_PRESSURE;
   req += airok.pressure;
-  req += "&field4=";
+  req += SEPARATOR;
+  req += CLOUD_FIELD_HUMIDITY;
   req += airok.humidity;
 
-  cmd = "AT+CIPSEND=";
+  cmd = F("AT+CIPSEND=");
   cmd += (req.length()+2);
   sendWifiCommand(cmd, ">");
 
-  sendWifiCommand(req, "OK");
+  sendWifiCommand(req, F("OK"));
 
 //  sendWifiCommand("AT+CIPCLOSE", "OK");  
 }
 
 void connectWifi(){ 
 // Serial.println("Connecting wifi");
- sendWifiCommand("AT+RST", "ready");
+ sendWifiCommand(F("AT+RST"), F("ready"));
 // Serial.println("Wifi reseted");
  
- sendWifiCommand("AT+CWMODE=1", "OK"); 
+ sendWifiCommand(F("AT+CWMODE=1"), "OK"); 
 
- String auth = "AT+CWJAP=\"";
+ String auth = F("AT+CWJAP=\"");
  auth +=CLOUD_SSID;
- auth += "\",\"";
+ auth += F("\",\"");
  auth +=CLOUD_PASS;
- auth +="\"";
+ auth +=F("\"");
 // Serial.print("Auth: ");
 // Serial.println(auth);
  sendWifiCommand(auth, "OK");

@@ -131,6 +131,23 @@ In order to configure wifi and cloud do the following.
  6. In section `API Keys` copy `Write API Key`
  7. Fill missing data in file `Cloud.h`
 
+ ## Fields
+
+|Field|Value|
+|------|--------|
+|field1|co2|
+|field2|temperature|
+|field3|pressure|
+|field4|humidity|
+
+## Uploading parameters to [OpenHAB](http://openhab.org) instead of ThingSpeak
+
+The `CloudSample.h` file contains also an alternative example for configuration of uploadint data to OpenHAB server (it is commented). You can enable persisting data on OpenHAB server and view historical charts, for example use [RRD database](https://github.com/openhab/openhab/wiki/rrd4j-Persistence).
+
+Some my OpenHAB configuration examples with RRD persistance are available [here](https://github.com/solvek/electronics/tree/master/meteostation3)
+
+Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if you are using OpenHAB 2+.
+
 # Electricity Power
 
 ![Current Measure](Images/Current.jpg)
