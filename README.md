@@ -44,7 +44,7 @@ An open sourse device which allows to control air condition in a room and publis
 
 For voltage stabilizing for CO2 sensor I am using such votage stabilizator:
 
-![Voltage stabilizer](Images/Voltage.jpg)
+<img src="Images/Voltage.jpg" alt="Voltage stabilizer" width="200">
 
  * [AliExpress](https://www.aliexpress.com/item/LM7805-L7805-3-Terminals-Voltage-Stabilizer-Regulator-Power-Supply-7-5-35V-to-5V/32692400880.html?spm=2114.13010608.0.99.jZrgkR)
  * Input Power: 7.5-35V (input polarity is not important)
