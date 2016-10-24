@@ -37,3 +37,5 @@
 //#define CLOUD_FIELD_TEMPERATURE F("MS_Temperature=")
 //#define CLOUD_FIELD_PRESSURE F("MS_Pressure=")
 //#define CLOUD_FIELD_HUMIDITY F("MS_Humidity=")
+// Optional
+//#define CLOUD_FIELD_CO2_RAW F("MS_CO2_Raw=")

@@ -29,7 +29,8 @@
 // Period of updating data from sensors and displaying
 #define PERIOD_UPDATE 100L
 // Period of sending data to cloud
-#define PERIOD_SEND 1*60*1000L
+#define PERIOD_SEND 10*60*1000L
+//#define PERIOD_SEND 30*1000L
 
 //////////////////////////////////////
 // Other configuration 
@@ -37,7 +38,7 @@
 // If CRITICAL_CO2 then signal from CO2 sensor will be used
 #define CRITICAL_CO2 600
 
-CO2Sensor co2sensor(PIN_CO2_AOUT);
+CO2Sensor co2sensor(PIN_CO2_AOUT, 0.999, 20);
 SFE_BMP180 bmp;
 DHT dht(PIN_DHT, DHT11);
 
@@ -56,6 +57,8 @@ struct {
   int pressure;
   int humidity;
 } airok;
+
+int co2raw;
 
 void setup() {
   pinMode(PIN_LED, OUTPUT);
@@ -106,14 +109,14 @@ void loop() {
 
 #ifdef USE_CLOUD
   if (now - lastSendDataTime > PERIOD_SEND){
-    Serial.print(F("now: "));
-    Serial.println(now);
-    Serial.print(F("lastSendDataTime: "));
-    Serial.println(lastSendDataTime);
-    Serial.print(F("Dif: "));
-    Serial.println(now-lastSendDataTime);    
-    Serial.print(F("PERIOD_SEND: "));
-    Serial.println(PERIOD_SEND);
+//    Serial.print(F("now: "));
+//    Serial.println(now);
+//    Serial.print(F("lastSendDataTime: "));
+//    Serial.println(lastSendDataTime);
+//    Serial.print(F("Dif: "));
+//    Serial.println(now-lastSendDataTime);    
+//    Serial.print(F("PERIOD_SEND: "));
+//    Serial.println(PERIOD_SEND);
     
     sendDataToCloud();
     lastSendDataTime = now;
@@ -129,6 +132,12 @@ void loop() {
 void updateData(){
 //  Serial.println(F("Reading data"));
   airok.co2 = readCo2();
+  co2raw = co2sensor.getVoltage();
+
+  Serial.print(F("CO2: "));
+  Serial.print(airok.co2);
+  Serial.print(F(", CO2 Raw: "));
+  Serial.println(co2raw);
 
   #ifdef CRITICAL_CO2
   digitalWrite(PIN_LED, airok.co2<CRITICAL_CO2 ? LOW : HIGH);
@@ -281,6 +290,8 @@ void draw() {
 #define SEPARATOR  F("&")
 
 void sendDataToCloud(){
+  Serial.println(F("Sending data to server"));
+  
   String cmd = F("AT+CIPSTART=\"TCP\",\"");
   cmd += CLOUD_IP;
   cmd += F("\",");
@@ -299,6 +310,12 @@ void sendDataToCloud(){
   req += SEPARATOR;
   req += CLOUD_FIELD_HUMIDITY;
   req += airok.humidity;
+
+  #ifdef CLOUD_FIELD_CO2_RAW
+  req += SEPARATOR;
+  req += CLOUD_FIELD_CO2_RAW;
+  req += co2raw;    
+  #endif
 
   cmd = F("AT+CIPSEND=");
   cmd += (req.length()+2);
