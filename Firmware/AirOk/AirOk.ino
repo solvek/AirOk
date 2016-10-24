@@ -17,10 +17,12 @@
 //////////////////////////////////////
 // Pins configuration
 #define PIN_CO2_AOUT A0
-#define PIN_CO2_DOUT 5
+//#define PIN_CO2_DOUT 5
 #define PIN_DHT 2
 #define PIN_BUTTON 3
-#define PIN_LED 12
+#define PIN_LED_RED 12
+#define PIN_LED_GREEN 11
+#define PIN_LED_BLUE 10
 #define PIN_WIFI_RX 7
 #define PIN_WIFI_TX 6
 
@@ -31,12 +33,6 @@
 // Period of sending data to cloud
 #define PERIOD_SEND 10*60*1000L
 //#define PERIOD_SEND 30*1000L
-
-//////////////////////////////////////
-// Other configuration 
-// Red LED indicator will be activated if actual concentration exceeds this value
-// If CRITICAL_CO2 then signal from CO2 sensor will be used
-#define CRITICAL_CO2 600
 
 CO2Sensor co2sensor(PIN_CO2_AOUT, 0.999, 20);
 SFE_BMP180 bmp;
@@ -61,10 +57,12 @@ struct {
 int co2raw;
 
 void setup() {
-  pinMode(PIN_LED, OUTPUT);
+  pinMode(PIN_LED_RED, OUTPUT);
+  pinMode(PIN_LED_GREEN, OUTPUT);
+  pinMode(PIN_LED_BLUE, OUTPUT);
   pinMode(PIN_BUTTON, INPUT);
 
-  #ifndef CRITICAL_CO2
+  #ifdef PIN_CO2_DOUT
   pinMode(PIN_CO2_DOUT, INPUT);
   #endif
   
@@ -139,11 +137,13 @@ void updateData(){
   Serial.print(F(", CO2 Raw: "));
   Serial.println(co2raw);
 
-  #ifdef CRITICAL_CO2
-  digitalWrite(PIN_LED, airok.co2<CRITICAL_CO2 ? LOW : HIGH);
-  #else
+  #ifdef PIN_CO2_DOUT
   int isCritical = digitalRead(PIN_CO2_DOUT);
-  digitalWrite(PIN_LED, isCritical);
+  digitalWrite(PIN_LED_GREEN, 0);
+  digitalWrite(PIN_LED_RED, isCritical);  
+  #else
+  digitalWrite(PIN_LED_GREEN, co2sensor.getGreenLevel());
+  digitalWrite(PIN_LED_RED, co2sensor.getRedLevel());
   #endif
 
 //  Serial.print(F("CO2 concentration: "));
@@ -242,11 +242,14 @@ void checkButton(){
 
   co2sensor.calibrate();  
 
-  digitalWrite(PIN_LED, LOW);
+  digitalWrite(PIN_LED_GREEN, LOW);
+  digitalWrite(PIN_LED_RED, LOW);
+  
+  digitalWrite(PIN_LED_BLUE, LOW);
   delay(100);
-  digitalWrite(PIN_LED, HIGH);
+  digitalWrite(PIN_LED_BLUE, HIGH);
   delay(500);
-  digitalWrite(PIN_LED, LOW);
+  digitalWrite(PIN_LED_BLUE, LOW);
 
   while(digitalRead(PIN_BUTTON) == HIGH);
 }
