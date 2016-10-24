@@ -139,11 +139,11 @@ void updateData(){
 
   #ifdef PIN_CO2_DOUT
   int isCritical = digitalRead(PIN_CO2_DOUT);
-  digitalWrite(PIN_LED_GREEN, 0);
+  digitalWrite(PIN_LED_GREEN, LOW);
   digitalWrite(PIN_LED_RED, isCritical);  
   #else
-  digitalWrite(PIN_LED_GREEN, co2sensor.getGreenLevel());
-  digitalWrite(PIN_LED_RED, co2sensor.getRedLevel());
+  analogWrite(PIN_LED_GREEN, co2sensor.getGreenLevel());
+  analogWrite(PIN_LED_RED, co2sensor.getRedLevel());
   #endif
 
 //  Serial.print(F("CO2 concentration: "));
