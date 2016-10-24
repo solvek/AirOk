@@ -172,8 +172,8 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 
 # Enclosing into a box
 
-<img src="Images/Enclosing Overview.jpg" alt="Enclosing Overview" width="400">
+<img src="Images/EnclosingOverview.jpg" alt="Enclosing Overview" width="400">
 
  * [The box on AliExpress](https://www.aliexpress.com/item/Free-shipping-135-90-45mm-1-pcs-project-box-plastic-desk-top-electronic-enclosure-distribution-box/32685307900.html?spm=2114.13010608.0.0.EqeX6e)
- * Sizes: 135*90*45
+ * Sizes: `135*90*45`
  * [Sketchup Model](Docs/Enclosing.skp)
