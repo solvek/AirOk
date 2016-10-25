@@ -2,9 +2,9 @@
 Adafruit Arduino - Lesson 3. RGB LED
 */
  
-int redPin = 12;
+int redPin = 10;
 int greenPin = 11;
-int bluePin = 10;
+int bluePin = 9;
  
 //uncomment this line if using a Common Anode LED
 //#define COMMON_ANODE
@@ -18,17 +18,18 @@ void setup()
  
 void loop()
 {
-  setColor(255, 0, 0);  // red
+  setColor(0, 0, 255);
   delay(1000);
-  setColor(0, 255, 0);  // green
-  delay(1000);
-  setColor(0, 0, 255);  // blue
-  delay(1000);
-  setColor(255, 255, 0);  // yellow
-  delay(1000);  
-  setColor(80, 0, 80);  // purple
-  delay(1000);
-  setColor(0, 255, 255);  // aqua
+  
+  setColor(0, 255, 0);
+  delay(500);
+
+  for (int i=0;i<255;i++){
+    setColor(i, 255-i, 0);
+    delay(50);    
+  }
+  
+  setColor(255, 0, 0);
   delay(1000);
 }
  
@@ -41,5 +42,5 @@ void setColor(int red, int green, int blue)
   #endif
   analogWrite(redPin, red);
   analogWrite(greenPin, green);
-  analogWrite(bluePin, blue);  
+  digitalWrite(bluePin, blue);  
 }
