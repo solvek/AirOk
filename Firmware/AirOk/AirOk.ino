@@ -20,9 +20,9 @@
 //#define PIN_CO2_DOUT 5
 #define PIN_DHT 2
 #define PIN_BUTTON 3
-#define PIN_LED_RED 11
-#define PIN_LED_GREEN 10
-#define PIN_LED_BLUE 9
+#define PIN_LED_RED 9
+#define PIN_LED_GREEN 11
+#define PIN_LED_BLUE 10
 #define PIN_WIFI_RX 7
 #define PIN_WIFI_TX 6
 

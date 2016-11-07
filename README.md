@@ -42,13 +42,9 @@ An open sourse device which allows to control air condition in a room and publis
 
 ## Votage stabilizer 5V
 
-For voltage stabilizing for CO2 sensor I am using such votage stabilizator:
+LM2708
 
-<img src="Images/Voltage.jpg" alt="Voltage stabilizer" width="400">
-
- * [AliExpress](https://www.aliexpress.com/item/LM7805-L7805-3-Terminals-Voltage-Stabilizer-Regulator-Power-Supply-7-5-35V-to-5V/32692400880.html?spm=2114.13010608.0.99.jZrgkR)
- * Input Power: 7.5-35V (input polarity is not important)
- * It is bases on [L7805](Images/l7805.png)
+<img src="Images/l7805.png" alt="Voltage stabilizer" width="400">
 
 ## Votage stabilizer 3.3V
 
@@ -61,7 +57,7 @@ For screen, barometer and wifi module I supply 3.3V power. For regulation of vol
 <img src="Images/ESP8266-2.jpg" alt="ESP8266" width="400">
 
  * [AliExpress](https://www.aliexpress.com/item/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send-Receive-LWIP-AP-STA/32229052791.html?spm=2114.13010608.0.90.mKvlhC)
- * [Pinout](Images/esp8266/ESP8266-Serial-Wireless-WIFI-Module-Transceiver-Send--Receive-Module.jpg)
+ * [Pinout](Images/ESP8266.jpg)
  * [Module details (incl AT commands)](https://www.itead.cc/wiki/ESP8266_Serial_WIFI_Module)
  * [Getting Started With the ESP8266 ESP-01](http://www.instructables.com/id/Getting-Started-With-the-ESP8266-ESP-01/?ALLSTEPS)
  * [Using ESP-01 and Arduino UNO](http://www.instructables.com/id/Using-ESP-01-and-Arduino-UNO/?ALLSTEPS)
@@ -69,9 +65,9 @@ For screen, barometer and wifi module I supply 3.3V power. For regulation of vol
 
 ### Wires for ESP8266
 
- * URXD - Yellow
+ * URXD - Blue
  * VCC - Red
- * GPIO0 - Brown
+ * GPIO0 - Brown (Red)
  * GPIO15 - Unwired
  * GPIO2 - Unwired
  * CH_PD - White
@@ -148,7 +144,7 @@ In order to configure wifi and cloud do the following.
 
 ## Uploading parameters to [OpenHAB](http://openhab.org) instead of ThingSpeak
 
-The `CloudSample.h` file contains also an alternative example for configuration of uploadint data to OpenHAB server (it is commented). You can enable persisting data on OpenHAB server and view historical charts, for example use [RRD database](https://github.com/openhab/openhab/wiki/rrd4j-Persistence).
+The `CloudSample.h` file contains also an alternative example for configuration of uploadint data to OpenHAB server (it is commented). You can enable persisting data on OpenHAB server and view historical charts, for example usne [RRD database](https://github.com/openhab/openhab/wiki/rrd4j-Persistence).
 
 Some my OpenHAB configuration examples with RRD persistance are available [here](https://github.com/solvek/electronics/tree/master/meteostation3)
 
@@ -177,3 +173,54 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
  * [The box on AliExpress](https://www.aliexpress.com/item/Free-shipping-135-90-45mm-1-pcs-project-box-plastic-desk-top-electronic-enclosure-distribution-box/32685307900.html?spm=2114.13010608.0.0.EqeX6e)
  * Sizes: `135*90*45`
  * [Sketchup Model](Docs/Enclosing.skp)
+
+## Wires
+
+### Input power (9V)
+|Main Board|External|Wire color|
+ |------|--------|--------|
+ |Ground|GND|Black|
+ |9V|VDD|Red|
+
+### DHT11 sensor
+
+ |Main Board|External|Wire color|
+ |------|--------|--------|
+ |Ground|GND|Black|
+ |5V|VDD|Red|
+ |D2|Data|Blue|
+
+### RGB Lamp
+
+ |Main Board|External|Wire color|
+ |------|--------|--------|
+ |Ground|GND|Black|
+ |D9|Red|Green|
+ |D11|Green|Green|
+ |D10|Blue|Green|
+
+### Touch Button
+
+ |Main Board|External|Wire color|
+ |------|--------|--------|
+ |Ground|GND|Black|
+ |5V|VDD|Red|
+ |D3|Dat|Blue|
+
+### OLED Screen
+
+ |Main Board|External|Wire color|
+ |------|--------|--------|
+ |Ground|GND|Black|
+ |3V3|VDD|Red|
+ |A4|SDA|Blue|
+ |A5|SCK|Green|
+
+### TGS4161
+
+ |Main Board|External|Wire color|
+ |------|--------|--------|
+ |Ground|GND|Black|
+ |5V|VCC|Red|
+ |A0|AOUT|Blue|
+
