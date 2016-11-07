@@ -42,7 +42,7 @@ An open sourse device which allows to control air condition in a room and publis
 
 ## Votage stabilizer 5V
 
-LM2708
+L7805
 
 <img src="Images/l7805.png" alt="Voltage stabilizer" width="400">
 
@@ -178,49 +178,48 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 
 ### Input power (9V)
 |Main Board|External|Wire color|
- |------|--------|--------|
- |Ground|GND|Black|
- |9V|VDD|Red|
+|------|--------|--------|
+|Ground|GND|Black|
+|9V|VDD|Red|
 
 ### DHT11 sensor
 
- |Main Board|External|Wire color|
- |------|--------|--------|
- |Ground|GND|Black|
- |5V|VDD|Red|
- |D2|Data|Blue|
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|5V|VDD|Red|
+|D2|Data|Blue|
 
 ### RGB Lamp
 
- |Main Board|External|Wire color|
- |------|--------|--------|
- |Ground|GND|Black|
- |D9|Red|Green|
- |D11|Green|Green|
- |D10|Blue|Green|
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|D9|Red|Green|
+|D11|Green|Green|
+|D10|Blue|Green|
 
 ### Touch Button
 
- |Main Board|External|Wire color|
- |------|--------|--------|
- |Ground|GND|Black|
- |5V|VDD|Red|
- |D3|Dat|Blue|
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|5V|VDD|Red|
+|D3|Dat|Blue|
 
 ### OLED Screen
 
- |Main Board|External|Wire color|
- |------|--------|--------|
- |Ground|GND|Black|
- |3V3|VDD|Red|
- |A4|SDA|Blue|
- |A5|SCK|Green|
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|3V3|VDD|Red|
+|A4|SDA|Blue|
+|A5|SCK|Green|
 
 ### TGS4161
 
- |Main Board|External|Wire color|
- |------|--------|--------|
- |Ground|GND|Black|
- |5V|VCC|Red|
- |A0|AOUT|Blue|
-
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|5V|VCC|Red|
+|A0|AOUT|Blue|
