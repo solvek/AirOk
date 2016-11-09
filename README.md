@@ -65,14 +65,20 @@ For screen, barometer and wifi module I supply 3.3V power. For regulation of vol
 
 ### Wires for ESP8266
 
- * URXD - Blue
- * VCC - Red
- * GPIO0 - Brown (Red)
- * GPIO15 - Unwired
- * GPIO2 - Unwired
- * CH_PD - White
- * GND - Black
- * UTXD - Green
+In case you want to upgrade firmware connect GPIO0 to ground.
+
+#### Top row
+
+|GND|GPIO2|GPIO0|URXD|
+|------|---------|--------|--------|
+|GND|Unwired|Unwired|D7|
+|Black|None|Brown|Green|
+
+#### Bottom row
+
+|UTXD|CH_PD|GPIO16|VCC|
+|D6|3v3|Unwired|3v3|
+|Blue|Red|Non|Red|
 
 ## BMP180 - Barometer/Temperature/Altitude sensor
 
@@ -182,14 +188,6 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 |Ground|GND|Black|
 |9V|VDD|Red|
 
-### DHT11 sensor
-
-|Main Board|External|Wire color|
-|------|--------|--------|
-|Ground|GND|Black|
-|5V|VDD|Red|
-|D2|Data|Blue|
-
 ### RGB Lamp
 
 |Main Board|External|Wire color|
@@ -199,6 +197,14 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 |D11|Green|Green|
 |D10|Blue|Green|
 
+### DHT11 sensor
+
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|5V|VDD|Red|
+|D2|Data|Blue|
+
 ### Touch Button
 
 |Main Board|External|Wire color|
@@ -206,6 +212,14 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 |Ground|GND|Black|
 |5V|VDD|Red|
 |D3|Dat|Blue|
+
+### TGS4161
+
+|Main Board|External|Wire color|
+|------|--------|--------|
+|Ground|GND|Black|
+|5V|VCC|Red|
+|A0|AOUT|Blue|
 
 ### OLED Screen
 
@@ -215,11 +229,3 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 |3V3|VDD|Red|
 |A4|SDA|Blue|
 |A5|SCK|Green|
-
-### TGS4161
-
-|Main Board|External|Wire color|
-|------|--------|--------|
-|Ground|GND|Black|
-|5V|VCC|Red|
-|A0|AOUT|Blue|
