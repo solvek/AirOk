@@ -77,6 +77,7 @@ In case you want to upgrade firmware connect GPIO0 to ground.
 #### Bottom row
 
 |UTXD|CH_PD|GPIO16|VCC|
+|------|---------|--------|--------|
 |D6|3v3|Unwired|3v3|
 |Blue|Red|Non|Red|
 
