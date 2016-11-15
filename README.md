@@ -79,7 +79,20 @@ In case you want to upgrade firmware connect GPIO0 to ground.
 |UTXD|CH_PD|GPIO16|VCC|
 |------|---------|--------|--------|
 |D6|3v3|Unwired|3v3|
-|Blue|Red|Non|Red|
+|Blue|Red|None|Red|
+
+### [Updating firmware](http://www.instructables.com/id/Getting-Started-With-the-ESP8266-ESP-01/step18/Miscellaneous-Different-Firmware/)
+
+ 1. Wire GPIO0 to GRD
+ 2. [Download Flasher](https://drive.google.com/a/jayconsystems.com/file/d/0B3dUKfqzZnlwVGc1YnFyUjgxelE/view)
+ 3. [Download a Firmware](https://github.com/nodemcu/nodemcu-firmware/releases), make sure it is of *Integer* type
+ 4. Wire module URXD (Green) to Arduino's TX (D1)
+ 5. Wire module UTXD (Blue) to Arduino's RX (D0)
+ 6. Run flasher in windows. Run app esp8266_flasher.exe
+ 7. In flasher chose the firmware bin file (like `nodemcu_integer_0.9.6-dev_20150704.bin`)
+ 8. Select com port
+ 9. Specify type 0x40000080
+ 10. Press `Download` to start flashing
 
 ## BMP180 - Barometer/Temperature/Altitude sensor
 
