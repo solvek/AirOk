@@ -243,3 +243,7 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
 |3V3|VDD|Red|
 |A4|SDA|Blue|
 |A5|SCK|Green|
+
+# External Links
+
+ * [Sleep Monitor](https://learn.adafruit.com/schluff-the-oshw-sleep-monitor)
