@@ -14,6 +14,9 @@
 
 #define UNDEFINED -1
 
+//#define LOG_WIFI
+//#define LOG_DATA
+
 //////////////////////////////////////
 // Pins configuration
 #define PIN_CO2_AOUT A0
@@ -67,11 +70,10 @@ void setup() {
   #endif
   
   Serial.begin(115200);
-//  Serial.println("=== Air'OK started ===");
+  Serial.println(F("=== Air'OK started ==="));
 
 #ifdef USE_CLOUD
   wifi.begin(115200);
-  connectWifi();
 #endif
 
   u8g.setColorIndex(1);
@@ -115,8 +117,9 @@ void loop() {
 //    Serial.println(now-lastSendDataTime);    
 //    Serial.print(F("PERIOD_SEND: "));
 //    Serial.println(PERIOD_SEND);
-    
+    connectWifi();
     sendDataToCloud();
+    disconnectWifi();
     lastSendDataTime = now;
   } 
 #endif
@@ -132,10 +135,12 @@ void updateData(){
   airok.co2 = readCo2();
   co2raw = co2sensor.getVoltage();
 
+#ifdef LOG_DATA
   Serial.print(F("CO2: "));
   Serial.print(airok.co2);
   Serial.print(F(", CO2 Raw: "));
   Serial.println(co2raw);
+#endif
 
   #ifdef PIN_CO2_DOUT
   int isCritical = digitalRead(PIN_CO2_DOUT);
@@ -146,19 +151,23 @@ void updateData(){
   analogWrite(PIN_LED_RED, co2sensor.getRedLevel());
   #endif
 
-//  Serial.print(F("CO2 concentration: "));
-//  Serial.print(airok.co2);
-//  Serial.println(F(" ppm"));
+#ifdef LOG_DATA
+  Serial.print(F("CO2 concentration: "));
+  Serial.print(airok.co2);
+  Serial.println(F(" ppm"));
+#endif
 
   airok.temperature = readDhtTemperature();
   airok.humidity = readHumidity();
 
-//  Serial.print(F("DHT Temperature: "));
-//  Serial.println(airok.temperature);
+#ifdef LOG_DATA
+  Serial.print(F("DHT Temperature: "));
+  Serial.println(airok.temperature);
+#endif
 
-//  double temperature2;
-//
-//  temperature2 = readBmpTemperature();
+  double temperature2;
+
+  temperature2 = readBmpTemperature();
 //  if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
 //  else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
 
@@ -166,10 +175,12 @@ void updateData(){
     UNDEFINED :
     readPressure(temperature2);
 
-//  Serial.print("BMP Temperature: ");
-//  Serial.println(temperature2);
-//  Serial.print("BMP pressure: ");
-//  Serial.println(airok.pressure);
+#ifdef LOG_DATA
+  Serial.print("BMP Temperature: ");
+  Serial.println(temperature2);
+  Serial.print("BMP pressure: ");
+  Serial.println(airok.pressure);
+#endif
 }
 
 int readCo2(){
@@ -326,7 +337,7 @@ void sendDataToCloud(){
 
   sendWifiCommand(req, F("OK"));
 
-//  sendWifiCommand("AT+CIPCLOSE", "OK");  
+  sendWifiCommand("AT+CIPCLOSE", "OK");  
 }
 
 void connectWifi(){ 
@@ -341,24 +352,38 @@ void connectWifi(){
  auth += F("\",\"");
  auth +=CLOUD_PASS;
  auth +=F("\"");
-// Serial.print("Auth: ");
-// Serial.println(auth);
+#ifdef LOG_WIFI
+ Serial.print("Auth: ");
+ Serial.println(auth);
+#endif
  sendWifiCommand(auth, "OK");
-// sendWifiCommand("AT+CIFSR", "OK");
+
+#ifdef LOG_WIFI 
+// Print current network parameters
+ sendWifiCommand("AT+CIFSR", "OK");
+#endif
 
 // This command takes the wifi to low energy (sleep) mode for provided time in ms but it doesn't wake up for me
 // sendWifiCommand("AT+GSLP=10000", "OK");
 }
 
+void disconnectWifi(){ 
+  sendWifiCommand(F("AT+CWQAP"), "OK");
+}
+
 bool sendWifiCommand(String command, String ack){
-//  Serial.print("Sending command: ");
-//  Serial.println(command);
+#ifdef LOG_WIFI
+  Serial.print("Sending command: ");
+  Serial.println(command);
+#endif
 
   wifi.println(command);
   if (expectResponse(ack))
     return true;
-//  else
-//    Serial.println("Failed to execute command");
+#ifdef LOG_WIFI
+  else
+    Serial.println("Failed to execute command");
+#endif
 }
 
 bool expectResponse(String keyword){
@@ -368,10 +393,14 @@ bool expectResponse(String keyword){
  while(millis() < deadline){
   if (wifi.available()){
     char ch = wifi.read();
-//    Serial.write(ch);
+#ifdef LOG_WIFI
+    Serial.write(ch);
+#endif
     if (ch == keyword[current_char])
       if (++current_char == keyword_length){
-//       Serial.println();
+#ifdef LOG_WIFI        
+       Serial.println();
+#endif
        return true;
     }
    }
