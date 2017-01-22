@@ -14,7 +14,7 @@
 
 #define UNDEFINED -1
 
-//#define LOG_WIFI
+#define LOG_WIFI
 //#define LOG_DATA
 
 //////////////////////////////////////
@@ -34,7 +34,7 @@
 // Period of updating data from sensors and displaying
 #define PERIOD_UPDATE 100L
 // Period of sending data to cloud
-#define PERIOD_SEND 10*60*1000L
+#define PERIOD_SEND 1*60*1000L
 //#define PERIOD_SEND 30*1000L
 
 CO2Sensor co2sensor(PIN_CO2_AOUT, 0.999, 20);
@@ -119,6 +119,7 @@ void loop() {
 //    Serial.println(PERIOD_SEND);
     connectWifi();
     sendDataToCloud();
+    delay(1000);
     disconnectWifi();
     lastSendDataTime = now;
   } 
@@ -168,8 +169,8 @@ void updateData(){
   double temperature2;
 
   temperature2 = readBmpTemperature();
-//  if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
-//  else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
+  if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
+  else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
 
   airok.pressure = (temperature2 == UNDEFINED) ?
     UNDEFINED :
@@ -342,8 +343,11 @@ void sendDataToCloud(){
 
 void connectWifi(){ 
 // Serial.println("Connecting wifi");
- sendWifiCommand(F("AT+RST"), F("ready"));
-// Serial.println("Wifi reseted");
+ for(int i=0;i<10;i++){
+  if (sendWifiCommand(F("AT+RST"), F("ready"))) break;
+  delay(1000);
+  // Serial.println("Wifi reseted");
+ }
  
  sendWifiCommand(F("AT+CWMODE=1"), "OK"); 
 
@@ -380,10 +384,12 @@ bool sendWifiCommand(String command, String ack){
   wifi.println(command);
   if (expectResponse(ack))
     return true;
+  else{
 #ifdef LOG_WIFI
-  else
     Serial.println("Failed to execute command");
 #endif
+    return false;
+  }
 }
 
 bool expectResponse(String keyword){
