@@ -156,11 +156,11 @@ void updateData(){
 //  Serial.print(F("DHT Temperature: "));
 //  Serial.println(airok.temperature);
 
-  double temperature2;
-
-  temperature2 = readBmpTemperature();
-  if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
-  else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
+//  double temperature2;
+//
+//  temperature2 = readBmpTemperature();
+//  if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
+//  else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
 
   airok.pressure = (temperature2 == UNDEFINED) ?
     UNDEFINED :
