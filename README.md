@@ -62,6 +62,7 @@ For screen, barometer and wifi module I supply 3.3V power. For regulation of vol
  * [Getting Started With the ESP8266 ESP-01](http://www.instructables.com/id/Getting-Started-With-the-ESP8266-ESP-01/?ALLSTEPS)
  * [Using ESP-01 and Arduino UNO](http://www.instructables.com/id/Using-ESP-01-and-Arduino-UNO/?ALLSTEPS)
  * Baud Rate: 115200
+ * My Router recognizes the device as `Espressif Inc.`
 
 ### Wires for ESP8266
 
