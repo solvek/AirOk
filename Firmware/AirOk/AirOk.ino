@@ -74,6 +74,7 @@ void setup() {
 
 #ifdef USE_CLOUD
   wifi.begin(115200);
+  connectWifi();  
 #endif
 
   u8g.setColorIndex(1);
@@ -117,10 +118,9 @@ void loop() {
 //    Serial.println(now-lastSendDataTime);    
 //    Serial.print(F("PERIOD_SEND: "));
 //    Serial.println(PERIOD_SEND);
-    connectWifi();
     sendDataToCloud();
-    delay(1000);
-    disconnectWifi();
+//    delay(1000);
+//    disconnectWifi();
     lastSendDataTime = now;
   } 
 #endif
@@ -338,16 +338,14 @@ void sendDataToCloud(){
 
   sendWifiCommand(req, F("OK"));
 
-  sendWifiCommand("AT+CIPCLOSE", "OK");  
+  delay(1000);
+  sendWifiCommand(F("AT+CIPCLOSE"), F("OK"));  
 }
 
 void connectWifi(){ 
 // Serial.println("Connecting wifi");
- for(int i=0;i<10;i++){
-  if (sendWifiCommand(F("AT+RST"), F("ready"))) break;
-  delay(1000);
-  // Serial.println("Wifi reseted");
- }
+ delay(5000);
+ sendWifiCommand(F("AT+RST"), F("ready")); 
  
  sendWifiCommand(F("AT+CWMODE=1"), "OK"); 
 
