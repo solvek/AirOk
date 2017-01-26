@@ -34,7 +34,7 @@
 // Period of updating data from sensors and displaying
 #define PERIOD_UPDATE 100L
 // Period of sending data to cloud
-#define PERIOD_SEND 1*60*1000L
+#define PERIOD_SEND 5*60*1000L
 //#define PERIOD_SEND 30*1000L
 
 CO2Sensor co2sensor(PIN_CO2_AOUT, 0.999, 20);
