@@ -16,7 +16,8 @@ An open sourse device which allows to control air condition in a room and publis
  * Red indicator for critical CO2 level
 
 # CO2 quality
-[How co2 conentration impacts humans (in ukrainian)](https://docs.google.com/document/d/1l87kJx1lqZpuicVIvCt-TA4aJeTVuhVo9qCxow-L0lQ/edit?usp=sharing)
+
+<img src="Images/Co2Impact.jpeg" alt="Scheme" width="400">
 
 # Used electronic components
 
