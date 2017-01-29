@@ -32,9 +32,9 @@
 //////////////////////////////////////
 // Temperature calibration
 // t = (t0*TC_A-TC_B)/TC_C
-#define TC_A 3
-#define TC_B 45
-#define TC_C 2
+#define TC_A 1
+#define TC_B 0
+#define TC_C 1
 
 //////////////////////////////////////
 // Timing configuration
