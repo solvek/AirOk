@@ -2,7 +2,7 @@
 
 An open sourse device which allows to control air condition in a room and publish data into cloud.
 
-<img src="Images/Prototype.jpg" alt="Prototype. general look" width="400">
+<img src="Images/FinalBox.jpg" alt="Final Look" width="400">
 
 # Features
 
@@ -22,6 +22,8 @@ An open sourse device which allows to control air condition in a room and publis
 # Used electronic components
 
 <img src="Images/Airok_schem.png" alt="Scheme" width="400">
+
+<img src="Images/Prototype.jpg" alt="Prototype. general look" width="400">
 
 [Fritzing scheme](Docs/Airok.fzz)
 
@@ -197,6 +199,8 @@ Notice: Currently I am using OpenHAB 1. The examples may need to be adopted if y
  * [The box on AliExpress](https://www.aliexpress.com/item/Free-shipping-135-90-45mm-1-pcs-project-box-plastic-desk-top-electronic-enclosure-distribution-box/32685307900.html?spm=2114.13010608.0.0.EqeX6e)
  * Sizes: `135*90*45`
  * [Sketchup Model](Docs/Enclosing.skp)
+
+<img src="Images/BoxInside.jpg" alt="Motheboard" width="400">
 
 ## Wires
 

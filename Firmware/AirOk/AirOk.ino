@@ -14,7 +14,7 @@
 
 #define UNDEFINED -1
 
-#define LOG_WIFI
+//#define LOG_WIFI
 //#define LOG_DATA
 
 //////////////////////////////////////
@@ -28,6 +28,13 @@
 #define PIN_LED_BLUE 10
 #define PIN_WIFI_RX 6
 #define PIN_WIFI_TX 7
+
+//////////////////////////////////////
+// Temperature calibration
+// t = (t0*TC_A-TC_B)/TC_C
+#define TC_A 3
+#define TC_B 45
+#define TC_C 2
 
 //////////////////////////////////////
 // Timing configuration
@@ -171,6 +178,8 @@ void updateData(){
   temperature2 = readBmpTemperature();
   if (airok.temperature == UNDEFINED) airok.temperature = temperature2;
   else if (temperature2 != UNDEFINED) airok.temperature = (airok.temperature+temperature2)/2;
+
+  if (airok.temperature != UNDEFINED) airok.temperature = (airok.temperature*TC_A-TC_B)/TC_C;
 
   airok.pressure = (temperature2 == UNDEFINED) ?
     UNDEFINED :
